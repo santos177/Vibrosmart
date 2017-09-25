@@ -82,14 +82,22 @@ class Sensor:
             return c3
         else:
             print ("Debe ingresar un eje: 'x','y' o 'z'")
-
+        bus.write_byte_data(0x1D, 0x2A, 0x00)
+        time.sleep(0.5)
+        
     def graph(self,c):    #c: el array con el muestreo
         self.c = c
         print ("Graficando...")
         pl.plot(t,c,'-r')
         pl.show()
-        bus.write_byte_data(0x1D, 0x2A, 0x00)
-        time.sleep(0.5)
+
+
+# TEST!
+sensor = Sensor()
+y = sensor.read(10,"y")
+sensor.graph(y)
+
+
 #pl.plot(t,c1)
 #w = np.array(c2)
 #frec = np.fft.rfft(w,100,-1)     analisis en frecuencia por medio de la FFT
